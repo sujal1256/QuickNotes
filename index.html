@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Note taking application. Create sticky notes for the web !"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>QuickNotes</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@100..800&display=swap" rel="stylesheet">
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <section class="header">
+      <p class="heading">
+        QuickNotes <span>A quick note taking web applicaton</span>
+      </p>
+      <ul class="nav-links">
+        <li>Home</li>
+        <li>Notes</li>
+      </ul>
+    </section>
+
+    <section class="functionalities"></section>
+    <!-- Actual Notes -->
+    <section>
+      <div class="note">
+        <h3 class="note-title">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde magni
+          omnis odio ducimus dolorum officiis voluptatibus voluptatem eaque
+          asperiores corporis repellat dignissimos, velit cumque sunt neque
+          harum consequatur et esse autem illo!
+        </h3>
+
+        <select class="priority" name="priority">
+          <option value="" disabled selected>Select Priority</option>
+          <option value="high" priority_value="3">High</option>
+          <option value="medium" priority_value="2">Medium</option>
+          <option value="low" priority_value="1">Low</option>
+        </select>
+
+        <p>Status</p>
+        <p>19th Sept, 2024 20:09:26</p>
+        <button class="btn delete-btn">Delete</button>
+        <button class="btn edit-btn">Edit</button>
+      </div>
+    </section>
+  </body>
+</html>

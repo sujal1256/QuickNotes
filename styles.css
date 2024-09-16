@@ -1,0 +1,41 @@
+body{
+    background-color: peachpuff;
+    box-sizing: border-box;
+    
+}
+*{
+    padding: 0;
+    margin: 0;
+    font-family: "Playpen Sans", cursive;
+
+}
+
+.header{
+    background-color: pink;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    .heading{
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 500;
+        span{
+            display: block;
+            font-size: 0.8rem;
+            font-weight: normal;
+            color: rgb(143, 132, 132);
+        }
+    }
+    .nav-links{
+        width: 10%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        list-style-type: none;
+        font-size: 1.2em;
+    }
+}
+
+.functionalities{
+    height: 50px;
+}
