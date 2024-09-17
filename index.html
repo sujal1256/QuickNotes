@@ -44,6 +44,10 @@
 
     <section class="functionalities">
       <button class="open-create-form">+ Create Note</button>
+      <select class="sort">
+        <option value="default" selected>Default</option>
+        <option value="priority">Priority</option>
+      </select>
     </section>
     <!-- Actual Notes -->
     <section class="notes-section">
@@ -56,17 +60,15 @@
         </h3>
 
         <!-- delete and edit buttons -->
-        <div class="buttons">
-          <button class="btn delete-btn">
-            <i class="fa-solid fa-trash"></i>
-          </button>
-          <button class="btn edit-btn">
-            <i class="fa-solid fa-pencil"></i>
-          </button>
-        </div>
+        <button class="btn delete-btn">
+          <i class="fa-solid fa-circle-xmark"></i>
+        </button>
+        <button class="btn edit-btn">
+          <i class="fa-solid fa-pencil"></i>
+        </button>
 
         <div class="priority priority-and-status-section">
-          <select class="create-note-priority" onchange={giveColorBasedOnPriority}>
+          <select class="create-note-priority">
             <option value="-1" disabled selected>Select Priority</option>
             <option value="2" class="option-high">High</option>
             <option value="1" class="option-medium">Medium</option>

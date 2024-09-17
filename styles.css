@@ -88,16 +88,32 @@ button{
 .note {
     background-color: rgb(216, 216, 216);
     width: 24%;
-    overflow: hidden;
     border-radius: 1em;
     padding: 0 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     /* transition: display 1s ease-in-out;  */
+    position: relative;
 
 }
 
+.note .delete-btn{
+    z-index: 1;
+    color: rgb(151, 5, 5);
+    font-size: 1.8rem;
+    position: absolute;
+    top: -20px;
+    right: -15px;
+    cursor: pointer;
+    border: none;
+    svg{
+        background-color: white;
+        border-radius: 100%;
+    }
+
+
+}
 .note-title {
     height: 20%;
     overflow: hidden;
