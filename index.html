@@ -65,12 +65,12 @@
           </button>
         </div>
 
-        <div class="priority-and-status-section">
-          <select class="priority" name="priority">
-            <option value="" disabled selected>Select Priority</option>
-            <option value="high" priority_value="3">High</option>
-            <option value="medium" priority_value="2">Medium</option>
-            <option value="low" priority_value="1">Low</option>
+        <div class="priority priority-and-status-section">
+          <select class="create-note-priority" onchange={giveColorBasedOnPriority}>
+            <option value="-1" disabled selected>Select Priority</option>
+            <option value="2" class="option-high">High</option>
+            <option value="1" class="option-medium">Medium</option>
+            <option value="0" class="option-low">Low</option>
           </select>
           <p>Status</p>
         </div>
@@ -81,6 +81,8 @@
         </div>
       </div>
     </section>
+
+    <!--      Create note screen      -->
 
     <section class="opaque-screen hidden">
       <div class="create-note">
@@ -94,16 +96,8 @@
             class="create-note-textarea"
             placeholder="Enter your text here"
           ></textarea>
-          <div class="create-priority-btn">
-            <select class="create-note-priority">
-              <option value="" disabled selected>Select Priority</option>
-              <option value="high" priority_value="3">High</option>
-              <option value="medium" priority_value="2">Medium</option>
-              <option value="low" priority_value="1">Low</option>
-            </select>
 
-            <button type="submit" class="create-btn">Create</button>
-          </div>
+          <button type="submit" class="create-btn">Create</button>
         </form>
       </div>
     </section>
@@ -115,6 +109,7 @@
       referrerpolicy="no-referrer"
     ></script>
 
-    <script src="index.js"></script>
+    <script type="module" src="constants.js" module></script>
+    <script type="module" src="index.js"></script>
   </body>
 </html>

@@ -9,6 +9,10 @@ body{
     font-family: "Playpen Sans", cursive;
 
 }
+button{
+    cursor: pointer;
+}
+
 
 /* ------------------- Header ------------------------    */
 .header{
@@ -55,7 +59,7 @@ body{
     border: 1px solid black;
     padding: 5px;
     border-radius: .4em;
-
+    cursor: pointer;
 }
 
 
@@ -82,7 +86,7 @@ body{
 
 
 .note {
-    background-color: azure;
+    background-color: rgb(216, 216, 216);
     width: 24%;
     overflow: hidden;
     border-radius: 1em;
@@ -142,13 +146,17 @@ body{
     border-top-right-radius: 1em ;
     padding: 20px;
 }
+
 .create-section-close-btn{
     color: rgb(151, 5, 5);
     font-size: 2rem;
-    position: absolute;
-    top: 0;
-    right: -1px;
+    position: relative;
+    top: -20px;
+    right: -50%;
     cursor: pointer;
+    background-color: white;
+    border-radius: 100%;
+    border: none;
 }
 
 .create-note-form{
@@ -159,6 +167,7 @@ body{
     margin: 20px auto;
     height: 30vh;
     justify-content: space-around;
+    align-items: end;
 
 }
 .create-note-textarea{
@@ -170,15 +179,24 @@ body{
 .create-btn{
     background-color: rgb(0, 123, 255);
     padding: 5px;
+    width: 10%;
+
     
 }
-
-.create-priority-btn{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+.option-high{
+    background-color: #C96868;
 }
-
+.option-medium{
+    background-color: #7695FF;
+}
+.option-low{
+    background-color: #86D293;
+}
+.priority{
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
 
 
 .hidden{
