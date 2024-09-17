@@ -20,14 +20,21 @@ import { months, notes, priorityBasedColouring } from "./constants.js";
 
 // Sort by time created / priority basis
 
-function closeCreateForm() {
-  opaqueScreen.classList.add("hidden");
+
+
+// FIXME:
+// Opens view section after clicking on dropdown
+
+function closeCreateSection() {
+  createNoteSection.closest(".opaque-screen").classList.add("hidden");
+}
+function closeViewSection() {
+  viewNoteSection.closest(".opaque-screen").classList.add("hidden");
 }
 
-function openCreateForm(e) {
+function openCreateSection(e) {
   e.preventDefault();
-
-  opaqueScreen.classList.remove("hidden");
+  createNoteSection.closest(".opaque-screen").classList.remove("hidden");
 }
 
 function createNote(e) {
@@ -53,50 +60,52 @@ function createNote(e) {
   }
 
   const html = `
-            <div class="note">
-          <h3 class="note-title">
-            ${createNoteTextarea.value}
-          </h3>
-  
-          <!-- delete and edit buttons -->
-          <button class="btn delete-btn">
-            <i class="fa-solid fa-circle-xmark"></i>
-          </button>
-          <button class="btn edit-btn">
-            <i class="fa-solid fa-pencil"></i>
-          </button>
-  
-          <div class="priority-and-status-section">
-            <select class="priority create-note-priority">
-              <option value="-1" disabled selected>Select Priority</option>
-              <option value="2">High</option>
-              <option value="1">Medium</option>
-              <option value="0">Low</option>
-            </select>
-            <p>Status</p>
+              <div class="note">
+            <h3 class="note-title">
+              ${createNoteTextarea.value}
+            </h3>
+    
+            <!-- delete and edit buttons -->
+            <button class="btn delete-btn">
+              <i class="fa-solid fa-circle-xmark"></i>
+            </button>
+            <button class="btn edit-btn">
+              <i class="fa-solid fa-pencil"></i>
+            </button>
+    
+            <div class="priority-and-status-section">
+              <select class="priority create-note-priority">
+                <option value="-1" disabled selected>Select Priority</option>
+                <option value="2">High</option>
+                <option value="1">Medium</option>
+                <option value="0">Low</option>
+              </select>
+              <p>Status</p>
+            </div>
+    
+            <div class="timestamp-div">
+              <p class="timestamp-status">Created on:</p>
+            <p class="timestamp">${date} ${months[month]}, ${year} ${time}</p>
+            </div>
           </div>
-  
-          <div class="timestamp-div">
-            <p class="timestamp-status">Created on:</p>
-          <p class="timestamp">${date} ${months[month]}, ${year} ${time}</p>
-          </div>
-        </div>
-      `;
+        `;
 
   notesSection.insertAdjacentHTML("beforeend", html);
 
-  // Add changing colors based on priority
   const newPriorityDropdown = notesSection.lastElementChild.querySelector(
     ".create-note-priority"
   );
   newPriorityDropdown.addEventListener("change", giveColorBasedOnPriority);
-
+  const note_id = newDate.getTime();
   const newNote = notesSection.lastElementChild;
-  newNote.setAttribute("note_id", newDate.getTime());
+  newNote.setAttribute("note_id", note_id);
+  newNote.addEventListener("click", () => {
+    viewNote(note_id);
+  });
 
   notes.push({
-    note_id: newDate.getTime(),
-    timestamp,
+    note_id,
+    timestamp : `Created on ${timestamp}`,
     content: createNoteTextarea.value,
     priority: "-1",
   });
@@ -105,7 +114,7 @@ function createNote(e) {
   deleteBtn.addEventListener("click", deleteNote);
 
   console.log(notes);
-  closeCreateForm();
+  closeCreateSection();
   createNoteTextarea.value = "";
 }
 
@@ -127,6 +136,8 @@ function giveColorBasedOnPriority(e) {
 }
 
 function deleteNote(e) {
+  e.stopPropagation();
+
   const note = e?.target?.closest(".note");
   console.log(note);
 
@@ -140,6 +151,65 @@ function deleteNote(e) {
   console.log(notes);
 }
 
+function openViewSection() {
+  viewNoteSection.closest(".opaque-screen").classList.remove("hidden");
+}
+
+function viewNote(note_id) {
+  openViewSection();
+  viewNoteId = note_id;
+
+  const note = notes.find((note) => note.note_id === note_id);
+  viewSectionTextarea.value = note.content;
+  viewNotePriority.value = note.priority;
+
+}
+
+
+function editNote() {
+  console.log("editing");
+  viewSectionTextarea.disabled = false;
+  viewSectionSaveBtn.style.backgroundColor = "rgb(0, 170, 255)";
+}
+
+function saveNote() {
+  const noteIndex = notes.findIndex(note => note.note_id === viewNoteId);
+  const newDate = new Date();
+  const date = newDate.getDate();
+  const month = newDate.getMonth();
+  const year = newDate.getFullYear();
+  const time = newDate.toLocaleTimeString();
+
+  const timestamp = `${date} ${months[month]}, ${year} ${time}`;
+
+  // Collect the new note data (content, priority, timestamp)
+  const tempNote = {
+    content: viewSectionTextarea.value,
+    priority: viewNotePriority.value,
+    timestamp: `Edited on ${timestamp}`
+  };
+
+  // Merge the existing note with the new tempNote (tempNote overwrites the existing note fields)
+  const newNote = { ...notes[noteIndex], ...tempNote };
+
+  // Replace the old note with the new merged note
+  notes[noteIndex] = newNote;
+  console.log('Note Edited Successfully');
+  console.log(newNote);
+  console.log(notes);
+}
+
+
+
+
+
+
+
+
+
+
+let viewNoteId = '';
+const createNoteSection = document.querySelector(".create-note");
 const createNoteBtn = document.querySelector(".create-btn");
 const notesSection = document.querySelector(".notes-section");
 const openCreateSectionBtn = document.querySelector(".open-create-form");
@@ -147,10 +217,20 @@ const createNoteTextarea = document.querySelector(".create-note-textarea");
 const createSectionCloseBtn = document.querySelector(
   ".create-section-close-btn"
 );
-const opaqueScreen = document.querySelector(".opaque-screen");
+const viewNoteSection = document.querySelector(".view-note");
+const viewSectionCloseBtn = document.querySelector(".view-note-close-btn");
+const viewSectionEditBtn = document.querySelector(".view-note-edit-btn");
+const viewSectionSaveBtn = document.querySelector(".view-note-save-btn");
+const viewSectionTextarea = document.querySelector(".view-note-textarea");
+const viewNotePriority = document.querySelector('.view-note-priority')
 
-openCreateSectionBtn.addEventListener("click", openCreateForm);
+viewSectionCloseBtn.addEventListener("click", closeViewSection);
 
-createSectionCloseBtn.addEventListener("click", closeCreateForm);
+openCreateSectionBtn.addEventListener("click", openCreateSection);
+
+createSectionCloseBtn.addEventListener("click", closeCreateSection);
 
 createNoteBtn.addEventListener("click", createNote);
+
+viewSectionEditBtn.addEventListener("click", editNote);
+viewSectionSaveBtn.addEventListener("click", saveNote);

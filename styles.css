@@ -1,9 +1,9 @@
 body{
     background-color: peachpuff;
-    box-sizing: border-box;
     position: relative;
 }
 *{
+    box-sizing: border-box;
     padding: 0;
     margin: 0;
     font-family: "Playpen Sans", cursive;
@@ -217,4 +217,74 @@ button{
 
 .hidden{
     display: none;
+}
+
+
+/* ......................................... view note  ..................................... */
+.view-note {
+    padding: 30px;
+    background-color: whitesmoke;
+    height: 50vh;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: end;
+    gap: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.view-note-textarea {
+    width: 100%;
+    padding: 15px;
+    resize: none;
+    height: 60%;
+    background-color: rgb(215, 214, 214);
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    outline: none;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.view-note-close-btn {
+    color: rgb(151, 5, 5);
+    font-size: 2rem;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.view-note button {
+    border: 1px solid black;
+    padding: 7px 15px;
+    background-color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border 0.3s ease;
+    border-radius: 5px;
+}
+
+.view-note button:hover {
+    background-color: rgb(200, 200, 200);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.view-note-save-btn {
+    background-color: rgb(0, 170, 255);
+    color: black;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.view-note-save-btn:hover {
+    background-color: rgb(0, 130, 200);
 }
