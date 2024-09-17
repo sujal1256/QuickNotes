@@ -10,11 +10,22 @@
 
     <title>QuickNotes</title>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@100..800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@100..800&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- CSS -->
     <link rel="stylesheet" href="styles.css" />
@@ -31,9 +42,11 @@
       </ul>
     </section>
 
-    <section class="functionalities"></section>
+    <section class="functionalities">
+      <button class="open-create-form">+ Create Note</button>
+    </section>
     <!-- Actual Notes -->
-    <section>
+    <section class="notes-section">
       <div class="note">
         <h3 class="note-title">
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde magni
@@ -42,18 +55,66 @@
           harum consequatur et esse autem illo!
         </h3>
 
-        <select class="priority" name="priority">
-          <option value="" disabled selected>Select Priority</option>
-          <option value="high" priority_value="3">High</option>
-          <option value="medium" priority_value="2">Medium</option>
-          <option value="low" priority_value="1">Low</option>
-        </select>
+        <!-- delete and edit buttons -->
+        <div class="buttons">
+          <button class="btn delete-btn">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+          <button class="btn edit-btn">
+            <i class="fa-solid fa-pencil"></i>
+          </button>
+        </div>
 
-        <p>Status</p>
-        <p>19th Sept, 2024 20:09:26</p>
-        <button class="btn delete-btn">Delete</button>
-        <button class="btn edit-btn">Edit</button>
+        <div class="priority-and-status-section">
+          <select class="priority" name="priority">
+            <option value="" disabled selected>Select Priority</option>
+            <option value="high" priority_value="3">High</option>
+            <option value="medium" priority_value="2">Medium</option>
+            <option value="low" priority_value="1">Low</option>
+          </select>
+          <p>Status</p>
+        </div>
+
+        <div class="timestamp-div">
+          <p class="timestamp-status">Created on:</p>
+          <p class="timestamp">19th Sept, 2024 20:09:26</p>
+        </div>
       </div>
     </section>
+
+    <section class="opaque-screen hidden">
+      <div class="create-note">
+        <button class="create-section-close-btn">
+          <i class="fa-solid fa-circle-xmark create-section-close-btn"></i>
+        </button>
+        <h1>Create a Note</h1>
+        <form class="create-note-form">
+          <textarea
+            required
+            class="create-note-textarea"
+            placeholder="Enter your text here"
+          ></textarea>
+          <div class="create-priority-btn">
+            <select class="create-note-priority">
+              <option value="" disabled selected>Select Priority</option>
+              <option value="high" priority_value="3">High</option>
+              <option value="medium" priority_value="2">Medium</option>
+              <option value="low" priority_value="1">Low</option>
+            </select>
+
+            <button type="submit" class="create-btn">Create</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"
+      integrity="sha512-6sSYJqDreZRZGkJ3b+YfdhB3MzmuP9R7X1QZ6g5aIXhRvR1Y/N/P47jmnkENm7YL3oqsmI6AK+V6AD99uWDnIw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script src="index.js"></script>
   </body>
 </html>
