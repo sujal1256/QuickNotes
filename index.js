@@ -1,4 +1,4 @@
-import { months, notes, priorityBasedColouring } from "./constants.js";
+import { months, priorityBasedColouring } from "./constants.js";
 ("use strict");
 // Have random colors.....
 // Use font as a handwriting like notes.......
@@ -20,8 +20,6 @@ import { months, notes, priorityBasedColouring } from "./constants.js";
 
 // Sort by time created / priority basis
 
-
-
 // FIXME:
 // Opens view section after clicking on dropdown
 
@@ -38,10 +36,8 @@ function openCreateSection(e) {
 }
 
 function createNote(e) {
-  console.log(createNoteTextarea);
-
-  createNoteTextarea.focus();
   e.preventDefault();
+
   const newDate = new Date();
   const date = newDate.getDate();
   const month = newDate.getMonth();
@@ -50,76 +46,30 @@ function createNote(e) {
 
   const timestamp = `${date} ${months[month]}, ${year} ${time}`;
 
-  console.log(month);
-
   if (createNoteTextarea?.value?.trim() === "") {
-    // FIXME:
     alert("Textarea can not be empty");
-
     return;
   }
-
-  const html = `
-              <div class="note">
-            <h3 class="note-title">
-              ${createNoteTextarea.value}
-            </h3>
-    
-            <!-- delete and edit buttons -->
-            <button class="btn delete-btn">
-              <i class="fa-solid fa-circle-xmark"></i>
-            </button>
-            <button class="btn edit-btn">
-              <i class="fa-solid fa-pencil"></i>
-            </button>
-    
-            <div class="priority-and-status-section">
-              <select class="priority create-note-priority">
-                <option value="-1" disabled selected>Select Priority</option>
-                <option value="2">High</option>
-                <option value="1">Medium</option>
-                <option value="0">Low</option>
-              </select>
-              <p>Status</p>
-            </div>
-    
-            <div class="timestamp-div">
-              <p class="timestamp-status">Created on:</p>
-            <p class="timestamp">${date} ${months[month]}, ${year} ${time}</p>
-            </div>
-          </div>
-        `;
-
-  notesSection.insertAdjacentHTML("beforeend", html);
-
-  const newPriorityDropdown = notesSection.lastElementChild.querySelector(
-    ".create-note-priority"
-  );
-  newPriorityDropdown.addEventListener("change", giveColorBasedOnPriority);
   const note_id = newDate.getTime();
-  const newNote = notesSection.lastElementChild;
-  newNote.setAttribute("note_id", note_id);
-  newNote.addEventListener("click", () => {
-    viewNote(note_id);
-  });
 
   notes.push({
     note_id,
-    timestamp : `Created on ${timestamp}`,
+    timestamp: `Created on ${timestamp}`,
     content: createNoteTextarea.value,
-    priority: "-1",
+    priority: "-1", // Default priority
   });
 
-  const deleteBtn = notesSection.lastElementChild.querySelector(".delete-btn");
-  deleteBtn.addEventListener("click", deleteNote);
+  // Save notes to localStorage
+  localStorage.setItem("notes", JSON.stringify(notes));
 
-  console.log(notes);
-  closeCreateSection();
-  createNoteTextarea.value = "";
+  // Reload the page to reflect the changes
+  window.location.reload();
 }
 
 function giveColorBasedOnPriority(e) {
   const selectedPriority = e.target.value;
+
+  console.log(selectedPriority);
 
   // Get the closest note div
   const closestNote = e.target.closest(".note");
@@ -132,23 +82,84 @@ function giveColorBasedOnPriority(e) {
   closestNote.style.backgroundColor =
     priorityBasedColouring[Number(selectedPriority)];
 
-  console.log(notes);
+  // Save updated notes to localStorage
+  localStorage.setItem("notes", JSON.stringify(notes));
+}
+
+function renderNote(note) {
+  const html = `
+      <div class="note" note_id="${note.note_id}">
+        <h3 class="note-title">
+          ${note.content}
+        </h3>
+
+        <!-- delete and edit buttons -->
+        <button class="btn delete-btn">
+          <i class="fa-solid fa-circle-xmark"></i>
+        </button>
+        <button class="btn edit-btn">
+          <i class="fa-solid fa-pencil"></i>
+        </button>
+
+        <div class="priority-and-status-section">
+          <select class="priority create-note-priority">
+            <option value="-1" disabled ${
+              note.priority == "-1" ? "selected" : ""
+            }>Select Priority</option>
+            <option value="2" ${
+              note.priority == "2" ? "selected" : ""
+            }>High</option>
+            <option value="1" ${
+              note.priority == "1" ? "selected" : ""
+            }>Medium</option>
+            <option value="0" ${
+              note.priority == "0" ? "selected" : ""
+            }>Low</option>
+          </select>
+          <p>Status</p>
+        </div>
+
+        <div class="timestamp-div">
+          <p class="timestamp-status">${note.timestamp}</p>
+        </div>
+      </div>
+    `;
+
+  // Append the new note to the notes section
+  notesSection.insertAdjacentHTML("beforeend", html);
+
+  // Add event listeners for each note
+  const newPriorityDropdown = notesSection.lastElementChild.querySelector(
+    ".create-note-priority"
+  );
+  newPriorityDropdown.addEventListener("click", (e) => e.stopPropagation());
+  newPriorityDropdown.addEventListener("change", giveColorBasedOnPriority);
+
+  const deleteBtn = notesSection.lastElementChild.querySelector(".delete-btn");
+  deleteBtn.addEventListener("click", deleteNote);
+
+  const noteElement = notesSection.lastElementChild;
+  noteElement.addEventListener("click", () => {
+    viewNote(note.note_id);
+  });
+
+  if (note.priority != -1) {
+    noteElement.style.backgroundColor = priorityBasedColouring[note.priority];
+  }
 }
 
 function deleteNote(e) {
   e.stopPropagation();
 
   const note = e?.target?.closest(".note");
-  console.log(note);
-
   const incomingNote_id = note?.getAttribute("note_id");
 
   notes.splice(
     notes.findIndex((n) => n.note_id == incomingNote_id),
     1
   );
-  note.remove();
-  console.log(notes);
+  localStorage.setItem("notes", JSON.stringify(notes));
+  window.location.reload();
 }
 
 function openViewSection() {
@@ -162,9 +173,7 @@ function viewNote(note_id) {
   const note = notes.find((note) => note.note_id === note_id);
   viewSectionTextarea.value = note.content;
   viewNotePriority.value = note.priority;
-
 }
-
 
 function editNote() {
   console.log("editing");
@@ -173,7 +182,7 @@ function editNote() {
 }
 
 function saveNote() {
-  const noteIndex = notes.findIndex(note => note.note_id === viewNoteId);
+  const noteIndex = notes.findIndex((note) => note.note_id === viewNoteId);
   const newDate = new Date();
   const date = newDate.getDate();
   const month = newDate.getMonth();
@@ -182,33 +191,23 @@ function saveNote() {
 
   const timestamp = `${date} ${months[month]}, ${year} ${time}`;
 
-  // Collect the new note data (content, priority, timestamp)
   const tempNote = {
     content: viewSectionTextarea.value,
     priority: viewNotePriority.value,
-    timestamp: `Edited on ${timestamp}`
+    timestamp: `Edited on ${timestamp}`,
   };
 
-  // Merge the existing note with the new tempNote (tempNote overwrites the existing note fields)
   const newNote = { ...notes[noteIndex], ...tempNote };
 
-  // Replace the old note with the new merged note
   notes[noteIndex] = newNote;
-  console.log('Note Edited Successfully');
-  console.log(newNote);
-  console.log(notes);
+
+  localStorage.setItem("notes", JSON.stringify(notes));
+
+  window.location.reload();
 }
 
-
-
-
-
-
-
-
-
-
-let viewNoteId = '';
+let viewNoteId = "";
+let notes;
 const createNoteSection = document.querySelector(".create-note");
 const createNoteBtn = document.querySelector(".create-btn");
 const notesSection = document.querySelector(".notes-section");
@@ -222,13 +221,26 @@ const viewSectionCloseBtn = document.querySelector(".view-note-close-btn");
 const viewSectionEditBtn = document.querySelector(".view-note-edit-btn");
 const viewSectionSaveBtn = document.querySelector(".view-note-save-btn");
 const viewSectionTextarea = document.querySelector(".view-note-textarea");
-const viewNotePriority = document.querySelector('.view-note-priority')
+const viewNotePriority = document.querySelector(".view-note-priority");
+
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("Loaded");
+  notes = JSON.parse(localStorage.getItem("notes")) || [];
+  notes.forEach(renderNote);
+  console.log(notes);
+});
 
 viewSectionCloseBtn.addEventListener("click", closeViewSection);
 
 openCreateSectionBtn.addEventListener("click", openCreateSection);
 
 createSectionCloseBtn.addEventListener("click", closeCreateSection);
+
+document
+  .querySelector(".create-note-priority")
+  .addEventListener("click", function (event) {
+    event.stopPropagation(); // Prevents the click event from bubbling up to the parent
+  });
 
 createNoteBtn.addEventListener("click", createNote);
 

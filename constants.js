@@ -1,4 +1,3 @@
-export const notes = [];
 
 export const months = [
   "Jan",
