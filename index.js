@@ -5,11 +5,10 @@ import { months, priorityBasedColouring } from "./constants.js";
 // Priority based coloring......
 // Create a note.....
 // Delete a note.....
+// Update a note......
 
-// Show complete note on hover else show fixed length of the note
 // Make it look like actual notes by adding a note at the center of it
 // Mark them as Todo, Doing or Done (Make particular styling for the same)
-// Update a note
 // Drag and drop a note
 // Add light and Dark theme
 // Add short cuts a edit a note
@@ -56,7 +55,8 @@ function createNote(e) {
     note_id,
     timestamp: `Created on ${timestamp}`,
     content: createNoteTextarea.value,
-    priority: "-1", // Default priority
+    priority: "-1",
+    status: "0",
   });
 
   // Save notes to localStorage
@@ -94,12 +94,14 @@ function renderNote(note) {
         </h3>
 
         <!-- delete and edit buttons -->
+        <div class="note-actions">
         <button class="btn delete-btn">
-          <i class="fa-solid fa-circle-xmark"></i>
+            <i class="fa-solid fa-circle-xmark"></i>
         </button>
         <button class="btn edit-btn">
-          <i class="fa-solid fa-pencil"></i>
+            <i class="fa-solid fa-pencil"></i>
         </button>
+    </div>
 
         <div class="priority-and-status-section">
           <select class="priority create-note-priority">
@@ -116,7 +118,18 @@ function renderNote(note) {
               note.priority == "0" ? "selected" : ""
             }>Low</option>
           </select>
-          <p>Status</p>
+
+          <select class="priority create-note-status">
+            <option value="0" ${
+              note.status == "0" ? "selected" : ""
+            }>To do</option>
+            <option value="1" ${
+              note.status == "1" ? "selected" : ""
+            }>Doing</option>
+            <option value="2" ${
+              note.status == "2" ? "selected" : ""
+            }>Done</option>
+          </select>
         </div>
 
         <div class="timestamp-div">
@@ -132,11 +145,25 @@ function renderNote(note) {
   const newPriorityDropdown = notesSection.lastElementChild.querySelector(
     ".create-note-priority"
   );
+  const newStatusDropdown = notesSection.lastElementChild.querySelector(
+    ".create-note-status"
+  );
+
   newPriorityDropdown.addEventListener("click", (e) => e.stopPropagation());
   newPriorityDropdown.addEventListener("change", giveColorBasedOnPriority);
 
+  newStatusDropdown.addEventListener("click", (e) => e.stopPropagation());
+  newStatusDropdown.addEventListener("change", giveStatus);
+
   const deleteBtn = notesSection.lastElementChild.querySelector(".delete-btn");
   deleteBtn.addEventListener("click", deleteNote);
+
+  const editBtn = notesSection.lastElementChild.querySelector(".edit-btn");
+  editBtn.addEventListener("click", (e) => {
+    // e.stopPropagation();
+    // openViewSection();
+    editNote();
+  });
 
   const noteElement = notesSection.lastElementChild;
   noteElement.addEventListener("click", () => {
@@ -146,6 +173,21 @@ function renderNote(note) {
   if (note.priority != -1) {
     noteElement.style.backgroundColor = priorityBasedColouring[note.priority];
   }
+}
+
+function giveStatus(e) {
+  const selectedStatus = e.target.value;
+
+  const closestNote = e.target.closest(".note");
+  const closestNoteId = closestNote.getAttribute("note_id");
+  console.log(closestNote);
+  console.log(closestNoteId);
+
+  notes.find((note) => {
+    return note.note_id == closestNoteId;
+  }).status = selectedStatus.toString();
+  localStorage.setItem("notes", JSON.stringify(notes));
+  console.log(notes);
 }
 
 function deleteNote(e) {
@@ -179,6 +221,13 @@ function editNote() {
   console.log("editing");
   viewSectionTextarea.disabled = false;
   viewSectionSaveBtn.style.backgroundColor = "rgb(0, 170, 255)";
+  viewSectionTextarea.style.backgroundColor = "#fff";
+}
+
+function closeEditMode() {
+  viewSectionTextarea.disabled = true;
+  viewSectionSaveBtn.style.backgroundColor = "rgb(0, 170, 255)";
+  viewSectionTextarea.style.backgroundColor = "#eaeaea";
 }
 
 function saveNote() {
@@ -202,7 +251,30 @@ function saveNote() {
   notes[noteIndex] = newNote;
 
   localStorage.setItem("notes", JSON.stringify(notes));
+  closeEditMode();
+  window.location.reload();
+}
 
+function prioritySort(a, b) {
+  console.log("Priority");
+
+  return b.priority - a.priority;
+}
+function defaultSort(a, b) {
+  return a.note_id - b.note_id;
+}
+function sortNotes() {
+  console.log("Sorting");
+
+  if (sortDropdownmenu.value === "priority") {
+    notes.sort(prioritySort);
+  } else {
+    notes.sort(defaultSort);
+  }
+  console.log(notes);
+
+  localStorage.setItem("notes", JSON.stringify(notes));
+  localStorage.setItem("sorted", sortDropdownmenu.value);
   window.location.reload();
 }
 
@@ -223,9 +295,12 @@ const viewSectionSaveBtn = document.querySelector(".view-note-save-btn");
 const viewSectionTextarea = document.querySelector(".view-note-textarea");
 const viewNotePriority = document.querySelector(".view-note-priority");
 
+const sortDropdownmenu = document.querySelector(".sort");
+
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Loaded");
   notes = JSON.parse(localStorage.getItem("notes")) || [];
+  sortDropdownmenu.value = localStorage.getItem("sorted") || "default";
   notes.forEach(renderNote);
   console.log(notes);
 });
@@ -246,3 +321,5 @@ createNoteBtn.addEventListener("click", createNote);
 
 viewSectionEditBtn.addEventListener("click", editNote);
 viewSectionSaveBtn.addEventListener("click", saveNote);
+
+sortDropdownmenu.addEventListener("change", sortNotes);
