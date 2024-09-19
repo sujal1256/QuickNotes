@@ -103,6 +103,7 @@ button{
     position: relative;
     padding-top: 40px;
     height: 200px;
+    cursor: pointer;
 }
 
 /* Note Title */
@@ -172,7 +173,7 @@ button{
 
 .timestamp-status {
     font-size: 0.8rem;
-    color: #777;
+    color: #565656;
 }
 
 /* Hover effect on note */
@@ -372,4 +373,19 @@ button{
     top: 0;
     left: 0;
     z-index: 999; /* Ensure it's beneath the popup but above everything else */
+}
+
+/* ............................Board View...................................... */
+.board-table{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    width: 80%;
+    padding: 15px;
+    margin: 0 auto;
+}
+thead>tr,tbody{
+    display: flex;
+    justify-content: space-around;
+
 }

@@ -48,12 +48,26 @@
         <option value="default">Default</option>
         <option value="priority">Priority</option>
       </select>
-      <a href="board.html">Board View</a>
+      <a href="index.html" class="board-view">Table View</a>
     </section>
     <!-- Actual Notes -->
-    <section class="notes-section"></section>
+    <table class="board-table">
+      <thead>
+        <tr>
+          <th>Todo</th>
+          <th>Doing</th>
+          <th>Done</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="todo-section"></tr>
+        <tr class="doing-section"></tr>
+        <tr class="done-section"></tr>
+      </tbody>
+    </table>
 
     <!--      Create note screen      -->
+
     <section class="opaque-screen hidden">
       <div class="create-note">
         <button class="create-section-close-btn">
@@ -92,13 +106,6 @@
           <option value="0">Low</option>
         </select>
 
-        <select class="view-note-status">
-          <option value="-1" disabled selected>Select Priority</option>
-          <option value="2">High</option>
-          <option value="1">Medium</option>
-          <option value="0">Low</option>
-        </select>
-
         <!-- Edit and Save Buttons -->
         <div class="view-note-actions">
           <button class="view-note-edit-btn">
@@ -118,6 +125,6 @@
     ></script>
 
     <script type="module" src="constants.js" module></script>
-    <script type="module" src="index.js"></script>
+    <script type="module" src="board.js"></script>
   </body>
 </html>
