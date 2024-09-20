@@ -1,4 +1,4 @@
-import { priorityBasedColouring,months } from "./constants.js";
+import { priorityBasedColouring, months } from "./constants.js";
 ("use strict");
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -6,25 +6,61 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const sortDropdownmenu = document.querySelector(".sort");
   sortDropdownmenu.value = localStorage.getItem("sorted") || "default";
-
+  let dragged = null;
 
   // Get notes from localStorage
   let notes = JSON.parse(localStorage.getItem("notes")) || [];
-
 
   // Define sections before using them
   const todoSection = document.querySelector(".todo-section");
   const doingSection = document.querySelector(".doing-section");
   const doneSection = document.querySelector(".done-section");
+
+  todoSection.addEventListener("dragover", (e) => e.preventDefault());
+  doingSection.addEventListener("dragover", (e) => e.preventDefault());
+  doneSection.addEventListener("dragover", (e) => e.preventDefault());
+
+  todoSection.addEventListener("drop", (e) => {
+    e.preventDefault();
+    dragged.remove();
+    console.log(dragged);
+    todoSection.appendChild(dragged);
+
+    notes.find(
+      (note) => note.note_id == dragged.getAttribute("note_id")
+    ).status = "0";
+    localStorage.setItem("notes", JSON.stringify(notes));
+    window.location.reload();
+  });
+
+  doingSection.addEventListener("drop", (e) => {
+    e.preventDefault();
+    dragged.remove();
+    doingSection.appendChild(dragged);
+    notes.find(
+      (note) => note.note_id == dragged.getAttribute("note_id")
+    ).status = "1";
+    localStorage.setItem("notes", JSON.stringify(notes));
+    window.location.reload();
+  });
+
+  doneSection.addEventListener("drop", (e) => {
+    e.preventDefault();
+    dragged.remove();
+    doneSection.appendChild(dragged);
+    notes.find(
+      (note) => note.note_id == dragged.getAttribute("note_id")
+    ).status = "2";
+    localStorage.setItem("notes", JSON.stringify(notes));
+    window.location.reload();
+  });
+
   const sections = [todoSection, doingSection, doneSection];
   let viewNoteId;
-
 
   // Render notes
   notes.forEach(renderNote);
   console.log(notes);
-
-
 
   const createNoteSection = document.querySelector(".create-note");
   const createNoteBtn = document.querySelector(".create-btn");
@@ -51,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderNote(note) {
     const html = `
-    <div class="note" note_id="${note.note_id}">
+    <td class="note" note_id="${note.note_id}" draggable="true">
       <h3 class="note-title">
         ${note.content}
       </h3>
@@ -98,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="timestamp-div">
         <p class="timestamp-status">${note.timestamp}</p>
       </div>
-    </div>
+    </td>
   `;
 
     // Convert status to a number (0 for To do, 1 for Doing, 2 for Done)
@@ -133,6 +169,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const noteElement = sections[noteStatus].lastElementChild;
     noteElement.addEventListener("click", () => {
       viewNote(note.note_id);
+    });
+
+    noteElement.addEventListener("dragstart", (e) => {
+      dragged = e.target;
+      e.dataTransfer.setData("text", e.target.id); // Store the id of the dragged note
+      console.log(e.target);
     });
 
     if (note.priority != -1) {
@@ -239,7 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     createNoteSection.closest(".opaque-screen").classList.remove("hidden");
   }
-  
+
   function viewNote(note_id) {
     openViewSection();
     viewNoteId = note_id;
@@ -266,6 +308,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.location.reload();
   }
+
 
   function deleteNote(e) {
     e.stopPropagation();
