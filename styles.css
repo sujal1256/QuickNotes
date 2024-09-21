@@ -1,410 +1,433 @@
-body{
-    background-color: peachpuff;
-    position: relative;
-}
-*{
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-    font-family: "Playpen Sans", cursive;
+    body{
+        background-color: whitesmoke;
+        position: relative;
+    }
+    *{
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        font-family: "Playpen Sans", cursive;
 
-}
-button{
-    cursor: pointer;
-}
-
-
-/* ------------------- Header ------------------------    */
-.header{
-    margin-top: 0;
-    background-color: pink;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 20px;    
-}
+    }
+    button{
+        cursor: pointer;
+    }
 
 
-.nav-links{
-    width: 10%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    list-style-type: none;
-    font-size: 1.2em;
-}
-.heading{
-    text-align: center;
-    font-size: 2rem;
-    font-weight: 500;
+    /* ------------------- Header ------------------------    */
+    .header{
+        margin-top: 0;
+        background-color: #48CFCB;
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 20px;    
+    }
     
-}
 
 
-.heading span{
-    display: block;
-    font-size: 0.8rem;
-    font-weight: normal;
-    color: rgb(143, 132, 132);
-}
+    .nav-links{
+        width: 10%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        list-style-type: none;
+        font-size: 1.2em;
+    }
+    .heading{
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 500;
+        
+    }
 
 
-/* ------------------- Functionalities section ------------------------    */
-.functionalities{
-    display: flex;
-    flex-direction: row-reverse;
-    gap: 10px;
+    .heading span{
+        display: block;
+        font-size: 0.8rem;
+        font-weight: normal;
+        color: rgb(91, 88, 88);
+    }
 
-    /* a,button,select{
+
+    /* ------------------- Functionalities section ------------------------    */
+    .functionalities{
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 10px;
+        padding: 10px;
+    }
+
+
+    .functionalities a, .functionalities button, .functionalities select{
         text-decoration: none;
         color: black;
-        background-color: lightblue;
+        background-color: #48CFCB;
         border: 1px solid black;
         padding: 5px;
         border-radius: .4em;
-        cursor: pointer; */
-    /* } */
-}
-
-
-.functionalities a, .functionalities button, .functionalities select{
-    text-decoration: none;
-    color: black;
-    background-color: lightblue;
-    border: 1px solid black;
-    padding: 5px;
-    border-radius: .4em;
-    cursor: pointer;
-}
+        cursor: pointer;
+        
+        &:hover{
+            background-color: #45b7b3;
+        }
+    }
 
 
 
 
-/* ------------------- Note section ------------------------    */
-.notes-section {
-    background-color: #f0f8ff; /* Soft light blue */
-    display: grid;
-    grid-template-columns: repeat(4, minmax(200px, 1fr)); /* Smaller note size */
-    gap: 15px;
-    padding: 15px;
-}
-/* Note Card */
-.note {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 300px;
-    transition: transform 0.2s ease-in-out;
-    margin: 10px;
-    position: relative;
-    padding-top: 40px;
-    height: 200px;
-    cursor: pointer;
-}
-
-/* Note Title */
-.note-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #333;
-    word-wrap: break-word;
-    margin-bottom: 10px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-/* Delete and Edit Button Section */
-.note-actions {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    display: flex;
-    gap: 10px;
-}
-
-.note-actions .btn {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 1.2rem;
-    color: #333;
-    transition: color 0.3s ease;
-}
-
-.note-actions .delete-btn:hover {
-    color: #ff5c5c;
-}
-
-.note-actions .edit-btn:hover {
-    color: #009688;
-}
-
-/* Priority and Status Section */
-.priority-and-status-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 15px;
-}
-
-.priority {
-    padding: 5px 10px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    background-color: #fff;
-    font-size: 0.9rem;
-    color: #333;
-}
-
-.status-label {
-    font-size: 1rem;
-    color: #555;
-}
-
-/* Timestamp */
-.timestamp-div {
-    margin-top: 10px;
-}
-
-.timestamp-status {
-    font-size: 0.8rem;
-    color: #565656;
-}
-
-/* Hover effect on note */
-.note:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-}
-
-
-/* ------------------- Create a new Note section ------------------------    */
-
-.opaque-screen{
-    background-color: rgba(128, 128, 128, 0.79);
-    position: absolute;
-    width: 100%;
-    height: 100vh;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-}
-
-.create-note{
-    text-align: center;
-    background-color: white;
-    width: 60%;
-    position: relative;
-    border-top-right-radius: 1em ;
-    padding: 20px;
-}
-
-.create-section-close-btn{
-    color: rgb(151, 5, 5);
-    font-size: 2rem;
-    position: relative;
-    top: -20px;
-    right: -50%;
-    cursor: pointer;
-    background-color: white;
-    border-radius: 100%;
-    border: none;
-}
-
-.create-note-form{
-
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    margin: 20px auto;
-    height: 30vh;
-    justify-content: space-around;
-    align-items: end;
-
-}
-.create-note-textarea{
-    width: 100%;
-    height: 100px;
-    resize: none;
-    padding: 10px;
-}
-.create-btn{
-    background-color: rgb(0, 123, 255);
-    padding: 5px;
-    width: 10%;
-
-    
-}
-.option-high{
-    background-color: #C96868;
-}
-.option-medium{
-    background-color: #7695FF;
-}
-.option-low{
-    background-color: #86D293;
-}
-.priority{
-    background-color: transparent;
-    border: none;
-    outline: none;
-}
-
-
-.hidden{
-    display: none;
-}
-
-
-/* ......................................... view note  ..................................... */
-/* Popup container */
-.view-note {
-    padding: 30px;
-    background-color: #fff;
-    height: 50vh;
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    position: fixed; /* Fix it in place */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Center the popup */
-    align-items: center;
-    gap: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Add some shadow */
-    z-index: 1000; /* Make sure it appears above everything else */
-    background-color: #f9f9f9;
-}
-
-/* Close button */
-.view-note-close-btn {
-    color: #ff5c5c;
-    font-size: 2rem;
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    cursor: pointer;
-    background-color: white;
-    border-radius: 100%;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.view-note-close-btn:hover {
-    background-color: #ff9999;
-}
-
-/* Textarea styling */
-.view-note-textarea {
-    width: 100%;
-    padding: 15px;
-    resize: none;
-    height: 60%;
-    background-color: #eaeaea;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    color: #333;
-    outline: none;
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Priority dropdown */
-.view-note-priority {
-    width: 50%;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    background-color: #fff;
-    outline: none;
-}
-
-/* Buttons for actions */
-.view-note-actions {
-    display: flex;
-    gap: 20px;
-}
-
-.view-note-actions button {
-    border: 1px solid black;
-    padding: 7px 15px;
-    background-color: white;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease, border 0.3s ease;
-    border-radius: 5px;
-}
-
-.view-note-actions button:hover {
-    background-color: rgb(200, 200, 200);
-    border: 1px solid rgba(0, 0, 0, 0.3);
-}
-
-/* Save button specific styling */
-.view-note-save-btn {
-    background-color: rgb(0, 170, 255);
-    color: black;
-    border: none;
-    transition: background-color 0.3s ease;
-}
-
-.view-note-save-btn:hover {
-    background-color: rgb(0, 130, 200);
-}
-
-/* Overlay effect */
-.opaque-screen {
-    background-color: rgba(0, 0, 0, 0.6);
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    z-index: 999; /* Ensure it's beneath the popup but above everything else */
-}
-
-/* ............................Board View...................................... */
-.board-table{
-    display: flex;
-    justify-content: space-around;
-    flex-direction: column;
-    width: 80%;
-    padding: 15px;
-    margin: 0 auto;
-}
-
-thead > tr{
-    display: flex;
-    justify-content: space-around;
-    align-items: start;
-}
-
-tbody{
-    display: flex;
-    justify-content: space-around;
-    align-items: start;
-    height: 100%;
-    min-height: 100vh;
+    /* ------------------- Note section ------------------------    */
+    .notes-section {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(200px, 1fr)); /* Smaller note size */
+        gap: 15px;
+        padding: 15px;
+    }
+    @media (max-width: 1300px) {
+        .notes-section {
+            grid-template-columns: repeat(3, minmax(200px, 1fr)); /* Smaller note size */
+        }
+    }
+    @media (max-width: 800px) {
+        .notes-section {
+            grid-template-columns: repeat(2, minmax(200px, 1fr)); /* Smaller note size */
+        }
+    }
+    @media (max-width: 550px) {
+        .notes-section {
+            grid-template-columns: repeat(1, minmax(200px, 1fr)); /* Smaller note size */
+        }
+    }
+    /* Note Card */
+    .note {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 300px;
+        transition: transform 0.2s ease-in-out;
+        margin: 10px auto;
         position: relative;
-}
+        padding-top: 40px;
+        height: 200px;
+        cursor: pointer;
+    }
 
-tbody > tr{
-    margin-top: 10px;
-    height: 100%;
-    width: 30%;
-    background-color: red;
-    position: relative;
-    min-height: 100vh;
-}
+    /* Note Title */
+    .note-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #333;
+        word-wrap: break-word;
+        margin-bottom: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    /* Delete and Edit Button Section */
+    .note-actions {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .note-actions .btn {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 1.2rem;
+        color: #333;
+        transition: color 0.3s ease;
+    }
+
+    .note-actions .delete-btn:hover {
+        color: #ff5c5c;
+    }
+
+    .note-actions .edit-btn:hover {
+        color: #009688;
+    }
+
+    /* Priority and Status Section */
+    .priority-and-status-section {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: 15px;
+        font-size: 0.9rem;
+        position: relative;
+    }
+
+    .priority {
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        background-color: #fff;
+        color: #333;
+        width: 30%;
+        position: relative;
+    }
+
+    .status-label {
+        color: #555;
+    }
+
+    /* Timestamp */
+    .timestamp-div {
+        margin-top: 10px;
+    }
+
+    .timestamp-status {
+        font-size: 0.8rem;
+        color: #565656;
+    }
+
+    /* Hover effect on note */
+    .note:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    }
+
+
+    /* ------------------- Create a new Note section ------------------------    */
+
+    .opaque-screen{
+        background-color: rgba(128, 128, 128, 0.79);
+        position: absolute;
+        width: 100%;
+        height: 100vh;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .create-note{
+        text-align: center;
+        background-color: white;
+        width: 60%;
+        position: relative;
+        border-top-right-radius: 1em ;
+        padding: 20px;
+    }
+
+    .create-section-close-btn{
+        color: rgb(151, 5, 5);
+        font-size: 2rem;
+        position: relative;
+        top: -20px;
+        right: -50%;
+        cursor: pointer;
+        background-color: white;
+        border-radius: 100%;
+        border: none;
+    }
+
+    .create-note-form{
+
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        margin: 20px auto;
+        height: 30vh;
+        justify-content: space-around;
+        align-items: end;
+
+    }
+    .create-note-textarea{
+        width: 100%;
+        height: 100px;
+        resize: none;
+        padding: 10px;
+    }
+    .create-btn{
+        background-color: #48CFCB;
+        padding: 5px;
+        width: 10%;
+
+        
+    }
+    .option-high{
+        background-color: #C96868;
+    }
+    .option-medium{
+        background-color: #7695FF;
+    }
+    .option-low{
+        background-color: #86D293;
+    }
+    .priority{
+        background-color: transparent;
+        border: none;
+        outline: none;
+    }
+
+
+    .hidden{
+        display: none;
+    }
+
+
+    /* ......................................... view note  ..................................... */
+    /* Popup container */
+    .view-note {
+        padding: 30px;
+        background-color: #fff;
+        height: 50vh;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        position: fixed; /* Fix it in place */
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); /* Center the popup */
+        align-items: center;
+        gap: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Add some shadow */
+        z-index: 1000; /* Make sure it appears above everything else */
+        background-color: #f9f9f9;
+    }
+
+    /* Close button */
+    .view-note-close-btn {
+        color: #ff5c5c;
+        font-size: 2rem;
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        cursor: pointer;
+        background-color: white;
+        border-radius: 100%;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 5px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .view-note-close-btn:hover {
+        background-color: #ff9999;
+    }
+
+    /* Textarea styling */
+    .view-note-textarea {
+        width: 100%;
+        padding: 15px;
+        resize: none;
+        height: 60%;
+        background-color: #eaeaea;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        color: #333;
+        outline: none;
+        box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Priority dropdown */
+    .view-note-priority {
+        width: 50%;
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        background-color: #fff;
+        outline: none;
+    }
+
+    /* Buttons for actions */
+    .view-note-actions {
+        display: flex;
+        gap: 20px;
+    }
+
+    .view-note-actions button {
+        border: 1px solid black;
+        padding: 7px 15px;
+        background-color: white;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease, border 0.3s ease;
+        border-radius: 5px;
+    }
+
+    .view-note-actions button:hover {
+        background-color: rgb(200, 200, 200);
+        border: 1px solid rgba(0, 0, 0, 0.3);
+    }
+
+    /* Save button specific styling */
+    .view-note-save-btn {
+        background-color: rgb(0, 170, 255);
+        color: black;
+        border: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .view-note-save-btn:hover {
+        background-color: rgb(0, 130, 200);
+    }
+
+    /* Overlay effect */
+    .opaque-screen {
+        background-color: rgba(0, 0, 0, 0.6);
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        z-index: 999; /* Ensure it's beneath the popup but above everything else */
+    }
+
+    /* ............................Board View...................................... */
+    .board-table{
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+        width: 80%;
+        padding: 15px;
+        margin: 0 auto;
+        gap: 10px;
+        font-size: 1.4em;
+    }
+
+    thead > tr{
+        display: flex;
+        justify-content: space-around;
+        align-items: start;
+        
+    }
+
+    tbody{
+        display: flex;
+        justify-content: space-around;
+        align-items: start;
+        height: 100%;
+        min-height: 100vh;
+        position: relative;
+    }
+
+    tbody > tr{
+        margin-top: 10px;
+        height: 100%;
+        width: 30%;
+        position: relative;
+        min-height: 100vh;
+        background-color: rgb(234, 232, 232);
+        padding: 20px;
+        border-radius: 1em;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+    }
+    tbody > tr > .note{
+        margin: 0 auto;
+    }

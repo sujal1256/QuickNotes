@@ -14,4 +14,4 @@ export const months = [
   "Dec",
 ];
 
-export const priorityBasedColouring = ["#86D293", "#7695FF", "#C96868"];
+export const priorityBasedColouring = ["#86D293", "#7695FF", "#ef7979"];
