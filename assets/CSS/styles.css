@@ -24,15 +24,6 @@
     }
     
 
-
-    .nav-links{
-        width: 10%;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        list-style-type: none;
-        font-size: 1.2em;
-    }
     .heading{
         text-align: center;
         font-size: 2rem;
@@ -398,36 +389,64 @@
         font-size: 1.4em;
     }
 
-    thead > tr{
+    /* thead > tr{
         display: flex;
         justify-content: space-around;
         align-items: start;
         
-    }
+    } */
 
-    tbody{
+    tbody {
         display: flex;
         justify-content: space-around;
         align-items: start;
-        height: 100%;
-        min-height: 100vh;
-        position: relative;
+        min-height: auto; /* Remove fixed height */
+        height: auto;     /* Adjust height to auto */
     }
-
-    tbody > tr{
+    
+    tbody > tr {
         margin-top: 10px;
-        height: 100%;
-        width: 30%;
-        position: relative;
-        min-height: 100vh;
-        background-color: rgb(234, 232, 232);
+        height: auto;  /* Adjust height to fit content */
+        min-height: auto;  /* Remove unnecessary min-height */
         padding: 20px;
+        background-color: rgb(234, 232, 232);
         border-radius: 1em;
         display: flex;
         flex-direction: column;
         gap: 15px;
-
     }
-    tbody > tr > .note{
-        margin: 0 auto;
+    
+    tbody .note {
+        margin: 0;
+        height: auto; 
+    }
+    
+    @media (max-width: 1100px) {
+        tbody {
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    
+        tbody > tr {
+            width: 100%; 
+            max-width: 100%; 
+            height: auto;
+            margin-bottom: 10px; 
+        }
+    
+        .drop-section {
+            width: 100%;
+            flex-direction: row;
+            height: auto;
+            flex-wrap: wrap;
+            align-items: center;
+            padding: 10px 0;
+            justify-content: center;
+            gap: 20px;
+            padding-bottom: 30px;
+        }
+        .drop-section th{
+            width: 100%;
+        }
     }

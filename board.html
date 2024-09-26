@@ -36,10 +36,6 @@
       <p class="heading">
         QuickNotes <span>A quick note taking web applicaton</span>
       </p>
-      <ul class="nav-links">
-        <li>Home</li>
-        <li>Notes</li>
-      </ul>
     </section>
 
     <section class="functionalities">
@@ -52,17 +48,21 @@
     </section>
     <!-- Actual Notes -->
     <table class="board-table">
-      <thead>
+      <!-- <thead>
         <tr>
+
+        </tr>
+      </thead> -->
+      <tbody>
+        <tr class="drop-section todo-section">
           <th>Todo</th>
-          <th>Doing</th>
+        </tr>
+        <tr class="drop-section doing-section"> 
+                   <th>Doing</th>
+        </tr>
+        <tr class="drop-section done-section">
           <th>Done</th>
         </tr>
-      </thead>
-      <tbody>
-        <tr class="drop-section todo-section"></tr>
-        <tr class="drop-section doing-section"></tr>
-        <tr class="drop-section done-section"></tr>
       </tbody>
     </table>
 
@@ -124,7 +124,12 @@
       referrerpolicy="no-referrer"
     ></script>
 
-    <script type="module" async src="./assets/Javascript/constants.js" module></script>
+    <script
+      type="module"
+      async
+      src="./assets/Javascript/constants.js"
+      module
+    ></script>
     <script type="module" defer src="./assets/Javascript/board.js"></script>
   </body>
 </html>
