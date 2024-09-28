@@ -294,7 +294,7 @@ const viewSectionTextarea = document.querySelector(".view-note-textarea");
 const viewNotePriority = document.querySelector(".view-note-priority");
 
 // Render notes once the page is loaded
-notes?.filter(note => note.user_id == userLoggedIn.id).forEach(renderNote);
+notes?.filter(note => note.user_id == userLoggedIn?.id).forEach(renderNote);
 
 // Add event listeners
 viewSectionCloseBtn.addEventListener("click", closeViewSection);

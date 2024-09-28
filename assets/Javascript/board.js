@@ -87,7 +87,7 @@ window.addEventListener('load',() => {
 });
 
 // Render notes
-notes.filter(note => note.user_id == userLoggedIn.id).forEach(renderNote);
+notes?.filter(note => note.user_id == userLoggedIn?.id).forEach(renderNote);
 
 const createNoteSection = document.querySelector(".create-note");
 const createNoteBtn = document.querySelector(".create-btn");
