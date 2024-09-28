@@ -12,7 +12,7 @@ let notes = JSON.parse(localStorage.getItem("notes")) || [];
 const todoSection = document.querySelector(".todo-section");
 const doingSection = document.querySelector(".doing-section");
 const doneSection = document.querySelector(".done-section");
-
+const signInContainer = document.querySelector('.sign-in-container');
 todoSection.addEventListener("dragover", (e) => e.preventDefault());
 doingSection.addEventListener("dragover", (e) => e.preventDefault());
 doneSection.addEventListener("dragover", (e) => e.preventDefault());
@@ -52,9 +52,42 @@ doneSection.addEventListener("drop", (e) => {
 const sections = [todoSection, doingSection, doneSection];
 let viewNoteId;
 
+const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn")) || null;
+const loggedInUserBox = document.querySelector('.user-name');
+const headerNavs = document.querySelector(".header-navs");
+const signedInHeaderBox = document.querySelector(".signed-in-header-box");
+const logoutBtn = document.querySelector('.logout-btn');
+const logoutBox = document.querySelector('.logout-box');
+
+
+
+signedInHeaderBox.addEventListener('click',() => logoutBox.classList.toggle('hidden'));
+
+logoutBtn.addEventListener('click',(e)=>{
+  e.preventDefault();
+  localStorage.removeItem('userLoggedIn');
+  window.location.reload();
+
+
+})
+
+
+
+window.addEventListener('load',() => {
+  console.log(headerNavs);
+  
+  if (userLoggedIn) {
+    headerNavs.classList.add("hidden");
+    signedInHeaderBox.classList.remove("hidden");
+    loggedInUserBox.textContent = userLoggedIn.name;
+
+    signInContainer.classList.add('hidden');
+
+  }
+});
+
 // Render notes
-notes.forEach(renderNote);
-console.log(notes);
+notes.filter(note => note.user_id == userLoggedIn.id).forEach(renderNote);
 
 const createNoteSection = document.querySelector(".create-note");
 const createNoteBtn = document.querySelector(".create-btn");
@@ -80,8 +113,12 @@ viewSectionSaveBtn.addEventListener("click", saveNote);
 viewSectionEditBtn.addEventListener("click", editNote);
 
 function renderNote(note) {
+  signInContainer.classList.add('hidden');
+  todoSection.classList.remove('hidden');
+  doingSection.classList.remove('hidden');
+  doneSection.classList.remove('hidden');
   const html = `
-    <td class="note" note_id="${note.note_id}" draggable="true">
+    <td class="note" note_id="${note.note_id}" draggable="true" user_id="${note.user_id}>
       <h3 class="note-title">
         ${note.content}
       </h3>
@@ -198,6 +235,7 @@ function createNote(e) {
   const note_id = newDate.getTime();
 
   notes.push({
+    user_id: userLoggedIn.id,
     note_id,
     timestamp: `Created on ${timestamp}`,
     content: createNoteTextarea.value,

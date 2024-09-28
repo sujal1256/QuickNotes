@@ -1,10 +1,11 @@
-
 # QuickNotes
 
 QuickNotes is a web application that allows users to create, view, edit, delete, and organize notes into different sections such as **To do**, **Doing**, and **Done**. Notes are stored in localStorage to persist across sessions. The app includes a drag-and-drop feature for moving notes between sections and color-coding based on priority.
 
 ## Features
 
+- **Sign Up**: Users can create an account by providing a unique username and password. The app will store user credentials in localStorage, allowing them to sign in from any session.
+- **Sign In**: Registered users can log in with their username and password. After signing in, the app will load the notes specific to that user.
 - **Create Notes**: Users can create new notes with content, priority, and timestamp.
 - **Drag and Drop**: Notes can be dragged between **To do**, **Doing**, and **Done** sections.
 - **Edit Notes**: Users can edit existing notes and save changes.
@@ -14,22 +15,30 @@ QuickNotes is a web application that allows users to create, view, edit, delete,
 - **Persistent Data**: Notes are stored in localStorage and persist even after page reloads.
 
 
+
 ## Screenshots
 
+1. **Signing Up**
 
-1. **Main Interface**
+   ![Main Interface](./assets/screenschots/signup.png)
+
+1. **Signing In**
+
+   ![Main Interface](./assets/screenschots/signin.png)
+
+3. **Main Interface**
 
    ![Main Interface](./assets/screenschots/main_interface.png)
 
-2. **Board Interface**
+4. **Board Interface**
 
    ![Note Creation](./assets/screenschots/board_interface.png)
 
-3. **Note Creation**
+5. **Note Creation**
 
    ![Note Creation](./assets/screenschots/note_creation.png)
 
-4. **Note Editing**
+6. **Note Editing**
 
    ![Note Editing](./assets/screenschots/note_editing.png)
 
@@ -40,18 +49,28 @@ QuickNotes is a web application that allows users to create, view, edit, delete,
 
 ```bash
 QuickNotes/
-│
 ├── assets/
 │   ├── CSS/
 │   │   └── styles.css
 │   └── Javascript/
 │       ├── board.js
 │       ├── constants.js
+│       ├── signin.js
+│       ├── signup.js
 │       └── index.js
+├── screenshots/
+│   ├── board_interface.png
+│   ├── main_interface.png
+│   ├── note_creation.png
+│   ├── note_editing.png
+│   ├── signin.png
+│   ├── signup.png
+│   └── userImage.webp
 ├── board.html
 ├── index.html
+├── signin.html
+├── signup.html
 └── Readme.md
-         
 ```
 
 

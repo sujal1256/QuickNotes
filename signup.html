@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <link rel="stylesheet" href="./assets/CSS/styles.css"> <!-- Link your CSS file here -->
+</head>
+<body>
+
+    <!-- Header -->
+    <section class="header">
+        <p class="heading">
+          QuickNotes <span>A quick note taking web applicaton</span>
+        </p>
+        <div class="header-navs">
+            <a href="./index.html">Home</a>
+            <a href="./signin.html">Sign In</a>
+        </div>
+      </section>
+
+    <!-- Signup Form -->
+    <div class="signup-container">
+        <div class="signup-form">
+            <h2>Sign Up</h2>
+            <p class="form-error hidden">Entered values are not valid</p>
+            <form>
+                <label for="full-name">Full Name</label>
+                <input type="text" id="full-name" name="full-name" placeholder="Full name" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Email" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Password (8 characters)" required>
+
+                <button type="submit" class="signup-btn">Sign Up</button>
+            </form>
+        </div>
+    </div>
+    <script src="./assets/Javascript/signup.js"></script>
+</body>
+</html>

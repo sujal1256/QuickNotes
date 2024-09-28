@@ -36,6 +36,20 @@
       <p class="heading">
         QuickNotes <span>A quick note taking web applicaton</span>
       </p>
+      <div class="header-navs">
+        <a href="signin.html">Sign In</a>
+        <a href="signup.html">Sign Up</a>
+      </div>
+
+      <div class="signed-in-header-box hidden">
+        <img class="header-image" src="./assets/screenschots/userImage.webp" alt="userImage">
+        <p class="user-name"></p>
+        <div class="logout-box hidden">
+          <button class="logout-btn">Logout</button>
+        </div>
+      </div>
+
+
     </section>
 
     <section class="functionalities">
@@ -47,7 +61,13 @@
       <a href="board.html">Board View</a>
     </section>
     <!-- Actual Notes -->
-    <section class="notes-section"></section>
+    <section class="notes-section">
+      <div class="sign-in-container">
+        <h2>Welcome to QuickNotes</h2>
+        <p>Please sign in to continue</p>
+        <a class="note-section-sign-in-btn" href="/signin.html">Sign In</a>
+      </div>
+    </section>
 
     <!--      Create note screen      -->
     <section class="opaque-screen hidden">

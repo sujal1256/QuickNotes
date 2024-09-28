@@ -3,8 +3,37 @@ import { months, priorityBasedColouring } from "./constants.js";
 
 // Initialize notes from localStorage first
 let notes = JSON.parse(localStorage.getItem("notes")) || [];
+const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn")) || null;
 const sortDropdownmenu = document.querySelector(".sort");
+const loggedInUserBox = document.querySelector('.user-name');
+const headerNavs = document.querySelector(".header-navs");
+const signedInHeaderBox = document.querySelector(".signed-in-header-box");
 sortDropdownmenu.value = localStorage.getItem("sorted") || "default";
+const signInContainer = document.querySelector('.sign-in-container');
+const logoutBtn = document.querySelector('.logout-btn');
+const logoutBox = document.querySelector('.logout-box');
+
+console.log(signedInHeaderBox);
+
+signedInHeaderBox.addEventListener('click',() => logoutBox.classList.toggle('hidden'));
+
+logoutBtn.addEventListener('click',(e)=>{
+  e.preventDefault();
+  localStorage.removeItem('userLoggedIn');
+  window.location.reload();
+})
+
+console.log(userLoggedIn);
+
+window.addEventListener('load',() => {  
+  if (userLoggedIn) {
+    headerNavs.classList.add("hidden");
+    signedInHeaderBox.classList.remove("hidden");
+    loggedInUserBox.textContent = userLoggedIn.name;
+
+    signInContainer.classList.add('hidden');
+  }
+});
 
 // Define functions to manage the DOM
 function closeCreateSection() {
@@ -37,6 +66,7 @@ function createNote(e) {
   const note_id = newDate.getTime();
 
   notes.push({
+    user_id: userLoggedIn.id,
     note_id,
     timestamp: `Created on ${timestamp}`,
     content: createNoteTextarea.value,
@@ -68,7 +98,7 @@ function giveColorBasedOnPriority(e) {
 
 function renderNote(note) {
   const html = `
-      <div class="note" note_id="${note.note_id}">
+      <div class="note" note_id="${note.note_id}" user_id="${note.user_id}">
         <h3 class="note-title">
           ${note.content}
         </h3>
@@ -264,7 +294,7 @@ const viewSectionTextarea = document.querySelector(".view-note-textarea");
 const viewNotePriority = document.querySelector(".view-note-priority");
 
 // Render notes once the page is loaded
-notes.forEach(renderNote);
+notes.filter(note => note.user_id == userLoggedIn.id).forEach(renderNote);
 
 // Add event listeners
 viewSectionCloseBtn.addEventListener("click", closeViewSection);
