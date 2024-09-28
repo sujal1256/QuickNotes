@@ -76,19 +76,19 @@ QuickNotes/
 
 ### Installation
 
-1. Clone the repository to your local machine:
+1. Clone the repository to your local machine :
 
    ```bash
    git clone https://github.com/sujal1256/QuickNotes
    ```
 
-2. Navigate to the project directory:
+2. Navigate to the project directory :
 
    ```bash
    cd QuickNotes
    ```
 
-3. Open the `index.html` file in your browser:
+3. Open the `index.html` file in your browser and start your live server:
 
    ```bash
    open index.html
